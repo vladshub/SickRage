@@ -40,13 +40,13 @@ class qbittorrentAPI(GenericClient):
 
         return self.auth if not self.response.status_code == 404 else None
 
-    def _add_torrent_uri(self, result):
+    def _add_torrent_uri(self, result, download_location):
 
         self.url = self.host+'command/download'
         data = {'urls': result.url}
         return self._request(method='post', data=data)
 
-    def _add_torrent_file(self, result):
+    def _add_torrent_file(self, result, download_location):
 
         self.url = self.host+'command/upload'
         files = {'torrents': (result.name + '.torrent', result.content)}

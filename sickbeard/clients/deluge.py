@@ -94,10 +94,10 @@ class DelugeAPI(GenericClient):
 
         return self.auth
 
-    def _add_torrent_uri(self, result):
+    def _add_torrent_uri(self, result, download_location):
 
         post_data = json.dumps({"method": "core.add_torrent_magnet",
-                                "params": [result.url, {}],
+                                "params": [result.url, {"download_location": download_location}],
                                 "id": 2
         })
         self._request(method='post', data=post_data)
@@ -109,7 +109,8 @@ class DelugeAPI(GenericClient):
     def _add_torrent_file(self, result):
 
         post_data = json.dumps({"method": "core.add_torrent_file",
-                                "params": [result.name + '.torrent', b64encode(result.content), {}],
+                                "params": [result.name + '.torrent', b64encode(result.content), 
+                                {"download_location": download_location}],
                                 "id": 2
         })
         self._request(method='post', data=post_data)

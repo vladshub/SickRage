@@ -62,7 +62,7 @@ class TransmissionAPI(GenericClient):
 
         return self.auth
 
-    def _add_torrent_uri(self, result):
+    def _add_torrent_uri(self, result, download_location):
 
         arguments = {'filename': result.url,
                      'paused': 1 if sickbeard.TORRENT_PAUSED else 0,
@@ -75,7 +75,7 @@ class TransmissionAPI(GenericClient):
 
         return self.response.json()['result'] == "success"
 
-    def _add_torrent_file(self, result):
+    def _add_torrent_file(self, result, download_location):
 
         arguments = {'metainfo': b64encode(result.content),
                      'paused': 1 if sickbeard.TORRENT_PAUSED else 0,

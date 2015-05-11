@@ -86,14 +86,14 @@ class GenericClient(object):
         """
         return None
 
-    def _add_torrent_uri(self, result):
+    def _add_torrent_uri(self, result, download_location):
         """
         This should be overridden should return the True/False from the client
         when a torrent is added via url (magnet or .torrent link)
         """
         return False
 
-    def _add_torrent_file(self, result):
+    def _add_torrent_file(self, result, download_location):
         """
         This should be overridden should return the True/False from the client
         when a torrent is added via result.content (only .torrent file)
@@ -168,7 +168,7 @@ class GenericClient(object):
 
         return result
 
-    def sendTORRENT(self, result):
+    def sendTORRENT(self, result, download_location):
 
         r_code = False
 
@@ -184,11 +184,11 @@ class GenericClient(object):
 
             # lazy fix for now, I'm sure we already do this somewhere else too
             result = self._get_torrent_hash(result)
-
+            logger.log(self.name + u' Got this as a result' + str(result), logger.ERROR)
             if result.url.startswith('magnet'):
-                r_code = self._add_torrent_uri(result)
+                r_code = self._add_torrent_uri(result, download_location)
             else:
-                r_code = self._add_torrent_file(result)
+                r_code = self._add_torrent_file(result, download_location)
 
             if not r_code:
                 logger.log(self.name + u': Unable to send Torrent: Return code undefined', logger.ERROR)

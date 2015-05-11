@@ -51,12 +51,12 @@ class uTorrentAPI(GenericClient):
 
         return self.auth if not self.response.status_code == 404 else None
 
-    def _add_torrent_uri(self, result):
+    def _add_torrent_uri(self, result, download_location):
 
         params = {'action': 'add-url', 's': result.url}
         return self._request(params=params)
 
-    def _add_torrent_file(self, result):
+    def _add_torrent_file(self, result, download_location):
 
         params = {'action': 'add-file'}
         files = {'torrent_file': (result.name + '.torrent', result.content)}

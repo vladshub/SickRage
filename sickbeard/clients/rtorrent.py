@@ -53,7 +53,7 @@ class rTorrentAPI(GenericClient):
 
         return self.auth
 
-    def _add_torrent_uri(self, result):
+    def _add_torrent_uri(self, result, download_location):
         filedata = None
 
         if not self.auth:
@@ -88,7 +88,7 @@ class rTorrentAPI(GenericClient):
             logger.log(traceback.format_exc(), logger.DEBUG)
             return False
 
-    def _add_torrent_file(self, result):
+    def _add_torrent_file(self, result, download_location):
         filedata = None
 
         if not self.auth:

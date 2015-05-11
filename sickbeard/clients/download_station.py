@@ -43,7 +43,7 @@ class DownloadStationAPI(GenericClient):
 
         return self.auth
 
-    def _add_torrent_uri(self, result):
+    def _add_torrent_uri(self, result, download_location):
 
         data = {'api':'SYNO.DownloadStation.Task',
                 'version':'1', 'method':'create',
@@ -57,7 +57,7 @@ class DownloadStationAPI(GenericClient):
 
         return self.response.json()['success']
 
-    def _add_torrent_file(self, result):
+    def _add_torrent_file(self, result, download_location):
 
         data = {'api':'SYNO.DownloadStation.Task',
                 'version':'1',
